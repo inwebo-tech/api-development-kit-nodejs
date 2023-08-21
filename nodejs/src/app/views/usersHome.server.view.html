@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class=text-center>User Management</h1>      
+
+    <form action="usersCreate" method="get">
+            <input type="submit" class="btn btn-sm btn-primary" value="Create a new user" />
+    </form>
+
+    <p>Search a user (you may then edit or delete found users):</p>
+    <form action="usersSearch" method="POST">
+        <input name="login" type="text" placeholder="Enter login..." value="" />
+        <input type="submit" class="btn btn-sm btn-primary" value="Search" />
+    </form>
+
+    {% if searchResulterr =='OK' %}
+        <ul>
+        {% for login in searchResultLogins%}
+            {% if !loop.last %}
+                <li>{{ login }}
+                    <form name="loginEdit" action="usersEdit" method="GET">
+                        <input name="loginId" type="hidden" value="{{ searchResultLoginIds[loop.index-1] }}" />
+                        <input name="login" type="hidden" value="{{ login }}" />
+                        <input name="firstname" type="hidden" value="{{ searchResultFirstNames[loop.index-1] }}" />
+                        <input name="lastname" type="hidden" value="{{ searchResultLastNames[loop.index-1] }}" />
+                        <input name="email" type="hidden" value="{{ searchResultEmails[loop.index-1] }}" />
+                        <input type="submit" class="btn btn-sm btn-info" value="Edit User" />
+                    </form>
+                    <form name="loginDelete" action="usersDelete" method="POST">
+                        <input name="loginId" type="hidden" value="{{ searchResultLoginIds[loop.index-1] }}" />
+                        <input name="login" type="hidden" value="{{ login }}" />
+                        <input type="submit" class="btn btn-sm btn-danger" value="Delete User" />
+                    </form>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if result=='OK' %}
+        <p class="alert alert-success"> User {{ deletedLogin }} successfully deleted </p> 
+    {% elif result %}
+        <p class="alert alert-danger">Error : {{ result }}</p>
+    {% endif %}
+    {% if deleteErr %}
+        <p class="alert alert-danger">Function loginDelete got error : {{ deleteErr }}</p>
+    {% endif %}
+    {% if err %}
+        <p class="alert alert-danger">Function loginSearch got error : {{ err }}</p>
+    {% endif %}
+    
+<form action="/" method="get">
+    <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+</form>
+
+</body>
+</html>

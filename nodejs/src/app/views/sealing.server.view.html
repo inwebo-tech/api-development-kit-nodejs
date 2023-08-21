@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class=text-center>inWebo API - Data Sealing Verification (REST)</h1>
+    <form class="form-signin" action="sealing" method="post">
+    <h2 class="form-signin-heading text-center">Data Sealing</h2>
+
+    <label for="login" class="sr-only">Login</label>
+    <input type="text" name="login" id="login" class="form-control" placeholder="Login" required autofocus>
+
+    <label for="otp" class="sr-only">OTP</label>
+    <input type="text" name="otp" id="otp" class="form-control" placeholder="OTP">
+
+    <label for="data" class="sr-only">Data</label>
+    <input type="text" name="data" id="data" class="form-control" placeholder="Data">
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
+
+    {% if result=='OK' %}
+        <p class="alert alert-success"> Data sealing was successfully verified by {{login}} </p> 
+    {% elif result %}
+        <p class="alert alert-danger">Error : {{ result }}</p>
+    {% endif %}
+    {% if statusCode %}
+        <p class="alert alert-danger">Error: statusCode = {{statusCode}}</p>
+    {% endif%}
+    
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+    </form>
+
+</body>
+</html>

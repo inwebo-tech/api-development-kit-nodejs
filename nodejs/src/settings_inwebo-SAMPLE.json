@@ -1,0 +1,9 @@
+{
+    "serviceId" : 0,
+    "certFile" : "" ,
+    "keyFile" : "" ,
+    "certPassphrase" : "",
+    "proxy" : "",
+    "authenticationWsdlFile" : "./Authentication.wsdl",
+    "provisioningWsdlFile" : "./Provisioning.wsdl"
+}

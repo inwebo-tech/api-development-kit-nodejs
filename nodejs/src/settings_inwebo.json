@@ -1,0 +1,9 @@
+{
+    "serviceId" : 80,
+    "certFile" : "./TEST.crt" ,
+    "keyFile" : "./TEST.rsa" ,
+    "certPassphrase" : "inwebotest",
+    "proxy" : "",
+    "authenticationWsdlFile" : "./Authentication.wsdl",
+    "provisioningWsdlFile" : "./Provisioning.wsdl"
+}

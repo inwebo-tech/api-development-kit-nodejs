@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class=text-center>inWebo API - Authentication (SOAP)</h1>
+
+    <form class="form-signin" action="soap" method="post">
+    <h2 class="form-signin-heading text-center">Identification</h2>
+
+    <label for="login" class="sr-only">Login</label>
+    <input type="text" name="login" id="login" class="form-control" placeholder="Login" required autofocus>
+
+    <label for="otp" class="sr-only">OTP</label>
+    <input type="text" name="otp" id="otp" class="form-control" placeholder="OTP">
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
+
+    {% if result=='OK' %}
+        <p class="alert alert-success"> User {{ login }} successfully authenticated </p> 
+    {% elif result %}
+        <p class="alert alert-danger">Error : {{ result }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p class="alert alert-danger">Function Authenticate got error : {{ error }}</p>
+    {% endif %}
+    
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+    </form>
+
+</body>
+</html>

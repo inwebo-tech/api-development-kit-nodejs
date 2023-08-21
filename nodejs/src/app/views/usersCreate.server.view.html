@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class=text-center>Create a new user</h1>
+
+    <form class="form-signin" action="usersCreate" method="post">
+    <h2 class="form-signin-heading text-center">Identification</h2>
+
+    <label for="login" class="sr-only">Login</label>
+    <input type="text" name="login" id="login" class="form-control" placeholder="Login" required autofocus>
+
+    <label for="firstName" class="sr-only">First Name</label>
+    <input type="firstName" name="firstName" id="firstName" class="form-control" placeholder="First Name">
+
+    <label for="lastName" class="sr-only">Last Name</label>
+    <input type="lastName" name="lastName" id="lastName" class="form-control" placeholder="Last Name">
+
+    <label for="emailAdress" class="sr-only">Email Adress</label>
+    <input type="emailAdress" name="emailAdress" id="emailAdress" class="form-control" placeholder="Email Adress">
+
+    <label for="activationCode" class="sr-only">Activation Code</label>
+    <select type="activationCode" name="activationCode" id="activationCode" class="form-control" placeholder="Activation Code">
+        <option value="0">Immediate code (15 minutes)</option>
+        <option value="2">3 week code</option>
+    </select>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+    </form>
+
+    {% if result=='OK' %} 
+        <p> User <b>{{ login }}</b> successfully created! </p> 
+        <p>Login Id : <b>{{id}}</b></%></p>
+        {% if codetype==0 %} 
+            <p>You may activate it with code: <b>{{ code }}</b></p>
+        {% endif %}
+        {% if codetype==2 %} 
+            <p>You may activate it with code: <b>{{ code }}</b></p>
+            <p>Using function loginGetCodeFromLink allows to retrieve the final activation code from this long code: <b>{{loginGetCodeFromLinkReturn}}</b></p>
+            {% if err2==='OK' %}
+            <p>Using function loginGetInfoFromLink allows to retrieve the final activation code and the login ID from this long code: Activation code: <b>{{loginGetInfoFromLinkReturn}}</b></p>
+            {% elif err2 %}
+                <p class="alert alert-danger">Error : <b>{{ err2 }}</b></p>
+        {% endif %}
+    {% endif %}
+
+    {% elif result %}
+        <p class="alert alert-danger">Error : {{ result }}</p>
+    {% endif %}
+    {% if err2 %}
+        <p class="alert alert-danger">Function loginGetCodeFromLink got error : {{ err2 }}</p>
+    {% endif %}
+    {% if err3 %}
+        <p class="alert alert-danger">Function loginGetInfoFromLink got error : {{ err3 }}</p>
+    {% endif %}
+    
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+    </form>
+    <form action="/users" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Users Management</button>
+    </form>  
+
+</body>
+</html>

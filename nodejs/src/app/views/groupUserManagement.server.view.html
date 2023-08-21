@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class="text-center">Manage users of group {{groupName}}</h1>
+
+    {% if result =='OK' %} 
+        {%if n==0 %} 
+            <p>No user in group {{groupName}}</p>
+        {% else %}
+            <h3>Users of the group are:</h3>
+            <ul>
+            {% for id in usersIds%}
+                {% if !loop.last %}
+                    <li>{{ usersLogins[loop.index-1] }}
+                        <form name="loginDelete" action="removeUserFromGroup" method="GET">
+                        <input name="groupId" type="hidden" value={{ groupId }} />
+                        <input name="groupName" type="hidden" value={{ groupName }} />
+                        <input name="loginId" type="hidden" value={{ id }} />
+                        <input name="login" type="hidden" value={{ usersLogins[loop.index-1] }} />
+                        <input type="submit" class="btn btn-sm btn-danger" value="Remove user from group" />
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% elif result %}
+        <p>Error : {{ result }}</p>
+    {% endif %}
+    {% if err %}
+        <p class="alert alert-danger">Function loginsQueryByGroup got error : {{ err }}</p>
+    {% endif %}
+    
+    {% if deletedRes=='OK' %}
+        <p class="alert alert-success">User {{deletedLogin}} successfully deleted from group {{groupName}} </p>
+    {% elif !(deletedRes == -1) %}
+        <p class="alert alert-danger">Error with the delete request : {{ deletedRes }}</p>   
+    {% endif %}
+    {% if deletedErr && !(deletedErr==-1) %}
+        <p class="alert alert-danger">Function groupAccountDelete got error : {{ deletedErr }}</p>
+    {% endif %}
+
+    {% if result2 =='OK' %} 
+        {%if n2==0 %} 
+            <p>No user</p>
+        {% else %}
+            <h3>Users of the service are:</h3>
+            <ul>
+            {% for id in usersIds2 %}
+                {% if !loop.last %}
+                    <li>{{ usersLogins2[loop.index-1] }}
+                        <form name="loginDelete" action="addUserToGroup" method="GET">
+                        <input name="groupId" type="hidden" value={{ groupId }} />
+                        <input name="groupName" type="hidden" value={{ groupName }} />
+                        <input name="loginId" type="hidden" value={{ id }} />
+                        <input name="login" type="hidden" value={{ usersLogins2[loop.index-1] }} />
+                        <input type="submit" class="btn btn-sm btn-primary" value="Add user to group" />
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% elif result2 %}
+        <p class="alert alert-danger">Error : {{ result2 }} </p>
+    {% endif %}
+    {% if err2 %}
+        <p class="alert alert-danger">Function loginsQuery got error : {{ err2 }}</p>
+    {% endif %}
+        
+    {% if addedRes =='OK' %}
+        <p class="alert alert-success">User {{addedLogin}} successfully added to group {{groupName}} </p>
+    {% elif !(addedRes == -1) %}
+         <p class="alert alert-danger">Error with the create request : {{ addedRes }}</p>   
+    {% endif %}
+    
+    {% if addedErr && !(addedErr==-1) %}
+        <p class="alert alert-danger">Function groupAccountCreate got error : {{ addedErr }}</p>
+    {% endif %}
+    
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+    </form>
+    <form action="/groups" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Groups Management</button>
+    </form> 
+
+</body>
+</html>

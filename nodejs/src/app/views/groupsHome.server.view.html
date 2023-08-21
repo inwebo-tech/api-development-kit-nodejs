@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>inWebo API Node JS Code Samples</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <meta charset="UTF-8">  
+</head>
+<body class="container">
+    <h1 class=text-center>User Group Management</h1>
+
+    {% if result =='OK' %} 
+        <p>Service available user groups are:</p>
+        <ul>
+        {% for name in groupsNames%}
+            {% if !loop.last %}
+                <li>{{ name }}
+                <form action="groupUserManagement" method="GET">
+                    <input name="groupId" type="hidden" value="{{ groupsIds[loop.index-1] }}" />
+                    <input name="groupName" type="hidden" value="{{ groupsNames[loop.index-1] }}" />
+                    <input type="submit" class="btn btn-sm btn-primary" value="Manage users in group" />
+                </form>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% elseif result %}
+        <p>Error : {{ result }} </p>
+    {% endif %}
+
+    {% if err %}
+        <p class="alert alert-danger">Function serviceGroupsQuery got error : {{ error }}</p>
+    {% endif %}
+
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-lg btn-default">Go Home</button>
+    </form>
+
+</body>
+</html>

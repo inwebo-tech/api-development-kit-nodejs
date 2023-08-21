@@ -1,0 +1,18 @@
+{
+  "name": "iwApi",
+  "version": "1.3.0",
+  "description": "InWebo API Node JS",
+  "main": "server.js",
+  "author": "inWebo Technologies",
+  "license": "MIT License",
+  "dependencies": {
+    "request" : "~2.79.0",
+    "body-parser": "~1.15.0",
+    "constants": "0.0.2",
+    "express": "~4.13.4",
+    "method-override": "~2.3.5",
+    "serve-favicon": "~2.3.0",
+    "soap": "~0.18.0",
+    "swig": "~1.4.2"
+  }
+}
